@@ -1,0 +1,4 @@
+client_id = 'c989452a9f5340599006abe7a3e7bba4'
+client_secret = 'c11644740f3349edbf2da0d080130f4b'
+auth_id = 'http://localhost:8888/callback'
+auth_id = 'http://0.0.0.0:8000/callback/'
