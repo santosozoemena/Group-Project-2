@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Region vs Features</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+    <div id="line"></div>
+    <script>
+    /* data route */
+       var default_url = "/music";
+        Plotly.d3.json(default_url, function (error, response) {
+            if (error) return console.warn(error);
+            var data = [response];
+            var layout = { margin: { t: 30, b: 100 } }
+            Plotly.plot("line", data, layout)
+        })
+    </script>
+</body>
+</html>
