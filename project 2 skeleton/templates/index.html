@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,16 +9,54 @@
 </head>
 
 <body>
-    <div id="line"></div>
+    <h1>Spotify Feature Descriptions</h1>
+       <h4>Beats Per Minute (BPM) - The tempo of the song. <br>
+        Energy - The energy of a song - the higher the value, the more energtic.<br>
+        Danceability - The higher the value, the easier it is to dance to this song. <br>
+        Loudness - The higher the value, the louder
+        the song. <br>
+        Valence - The higher the value, the more positive mood for the song. <br>
+        Length - The duration of the song. <br>
+        Acoustic - The higher the value the more acoustic the song is. <br>
+        Popularity - The higher the value the more popular the song is.</h4>
+
+        <select id="selDataset" onchange="getData(this.value)">
+            <option value="dance">dance</option>
+            <option value="bpm">bpm</option>
+            <option value="energy">energy</option>
+            <option value="valence">valence</option>
+            <option value="loud">loud</option>
+            <option value="acoustic">acoustic</option>
+            <option value="pop">pop</option>
+            <option value="loud">length</option>
+        </select>
+    <div id="bar"></div>
     <script>
-    /* data route */
-       var default_url = "/music";
+
+       var default_url = "/dance";
         Plotly.d3.json(default_url, function (error, response) {
             if (error) return console.warn(error);
             var data = [response];
             var layout = { margin: { t: 30, b: 100 } }
-            Plotly.plot("line", data, layout)
+            Plotly.plot("bar", data, layout)
         })
+
+        function updatePlotly(newdata) {
+            var Bar = document.getElementById('bar');
+            Plotly.restyle(Bar, 'x', [newdata.x])
+            Plotly.restyle(Bar, 'y', [newdata.y])
+        }
+
+        // Get new data whenever the dropdown selection changes
+        function getData(route) {
+            console.log(route);
+            Plotly.d3.json(`/${route}`, function (error, data) {
+                console.log("newdata", data);
+                updatePlotly(data);
+            });
+        }
     </script>
+
+
 </body>
 </html>

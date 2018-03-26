@@ -51,27 +51,127 @@ class Music(db.Model):
 # Create database classes
 @app.before_first_request
 def setup():
-    # Recreate database each time for demo
-    # db.drop_all()
     db.create_all()
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
-@app.route("/music")
-def emoji_char_data():
-    """Return region data and danceability"""
-
+@app.route("/dance")
+def dance_feature():
     results = db.session.query(Music.Region, Music.DANCE).order_by(func.random()).limit(100).all()
-
-    emoji_char = [result[0] for result in results]
-    scores = [int(result[1]) for result in results]
-
+    region = [result[0] for result in results]
+    dance = [int(result[1]) for result in results]
     # Generate the plot trace
     plot_trace = {
-        "x": emoji_char,
-        "y": scores,
+        "x": region,
+        "y": dance,
+        "type": "bar",
+        "title": "test"
+    }
+    return jsonify(plot_trace)
+
+
+@app.route("/bpm")
+def bpm_feature():
+    results = db.session.query(Music.Region, Music.BPM).order_by(
+        func.random()).limit(100).all()
+    region = [result[0] for result in results]
+    bpm = [int(result[1]) for result in results]
+    # Generate the plot trace
+    plot_trace = {
+        "x": region,
+        "y": bpm,
+        "type": "bar"
+    }
+    return jsonify(plot_trace)
+
+
+@app.route("/energy")
+def energy_feature():
+    results = db.session.query(Music.Region, Music.ENERGY).order_by(
+        func.random()).limit(100).all()
+    region = [result[0] for result in results]
+    energy = [int(result[1]) for result in results]
+    # Generate the plot trace
+    plot_trace = {
+        "x": region,
+        "y": energy,
+        "type": "bar"
+    }
+    return jsonify(plot_trace)
+
+
+@app.route("/valence")
+def valence_feature():
+    results = db.session.query(Music.Region, Music.VALENCE).order_by(
+        func.random()).limit(100).all()
+    region = [result[0] for result in results]
+    valence = [int(result[1]) for result in results]
+    # Generate the plot trace
+    plot_trace = {
+        "x": region,
+        "y": valence,
+        "type": "bar"
+    }
+    return jsonify(plot_trace)
+
+
+@app.route("/loud")
+def loud_feature():
+    results = db.session.query(Music.Region, Music.LOUD).order_by(
+        func.random()).limit(100).all()
+    region = [result[0] for result in results]
+    loud = [int(result[1]) for result in results]
+    # Generate the plot trace
+    plot_trace = {
+        "x": region,
+        "y": loud,
+        "type": "bar"
+    }
+    return jsonify(plot_trace)
+
+
+@app.route("/acoustic")
+def acoustic_feature():
+    results = db.session.query(Music.Region, Music.ACOUSTIC).order_by(
+        func.random()).limit(100).all()
+    region = [result[0] for result in results]
+    acoustic = [int(result[1]) for result in results]
+    # Generate the plot trace
+    plot_trace = {
+        "x": region,
+        "y": acoustic,
+        "type": "bar"
+    }
+    return jsonify(plot_trace)
+
+
+@app.route("/pop")
+def pop_feature():
+    results = db.session.query(Music.Region, Music.POP).order_by(
+        func.random()).limit(100).all()
+    region = [result[0] for result in results]
+    pop = [int(result[1]) for result in results]
+    # Generate the plot trace
+    plot_trace = {
+        "x": region,
+        "y": pop,
+        "type": "bar"
+    }
+    return jsonify(plot_trace)
+
+
+@app.route("/length")
+def length_feature():
+    results = db.session.query(Music.Region, Music.LENGTH).order_by(
+        func.random()).limit(100).all()
+    region = [result[0] for result in results]
+    pop = [int(result[1]) for result in results]
+    # Generate the plot trace
+    plot_trace = {
+        "x": region,
+        "y": length,
         "type": "bar"
     }
     return jsonify(plot_trace)
