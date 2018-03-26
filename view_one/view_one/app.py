@@ -1,40 +1,221 @@
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
-from sqlalchemy import create_engine, inspect, func
+from sqlalchemy import create_engine, func
+
+import pandas as pd
 
 from flask import Flask, jsonify
 
 engine = create_engine('sqlite:///spotify_data.sqlite')
 
-#create inspector and connect to engine
-inspector = inspect(engine)
-
-print(inspector.get_table_names())
-
-columns = inspector.get_columns('spotify_table')
-for column in columns:
-    print(column['name'], column['type'])
-
-print(columns)
-
-#reflect an existing database into a new model
 Base = automap_base()
-
-#reflect the tables
 Base.prepare(engine, reflect= True)
+Music = Base.classes.spotify_table
 
-print(Base.classes.keys())
+session = Session(engine)
 
+app = Flask(__name__)
+@app.route('/region_intensities')
+def region_intensity():
+    
+    regions = [
+    'Ecuador',
+    'France',
+    'Argentina',
+    'Finland',
+    'Norway',
+    'Italy',
+    'Lituania',
+    'Phillipines',
+    'Taiwan',
+    'New Zealand',
+    'Estonia',
+    'Turkey',
+    'United States of America',
+    'El Salvador',
+    'Costa Rica',
+    'Germany',
+    'Chile'
+    ]
 
-#save reference
-# Music = Base.classes.music
+    sel = [
+        Music.ENERGY,
+        Music. BPM,
+        Music.DANCE,
+        Music.ACOUSTIC,
+        Music.POP
+    ]
 
-# app = Flask(__name__)
+    features = []
+    ecuador_intensity = []
+    france_intensity = []
+    argentina_intensity = []
+    finland_intensity = []
+    norway_intensity = []
+    italy_intensity = []
+    phillipines_intensity = []
+    taiwan_intensity = []
+    zealand_intensity = []
+    estonia_intensity = []
+    turkey_intensity = []
+    america_intensity = []
+    salvador_intensity = []
+    costa_intensity = []
+    germany_intensity = []
+    chile_intensity = []
 
-# @app.route('/')
+    for region in regions:
+        features.append({
+            region : session.query(*sel).filter(Music.Region == region).all()  
+        })
+        
+    ecuador_features = features[0]['Ecuador']
+    ecuador_features = pd.DataFrame(ecuador_features)
 
+    for key in ecuador_features:
+        ecuador_intensity.append({
+            key: ecuador_features[key].sum()
+        })
 
+    france_features = features[1]['France']
+    france_features = pd.DataFrame(france_features)
 
-# if __name__ == '__main__':
-#     app.run(debug = True)
+    for key in france_features:
+        france_intensity.append({
+            key: france_features[key].sum()
+        })
+        
+    argentina_features = features[2]['Argentina']
+    argentina_features = pd.DataFrame(argentina_features)
+
+    for key in argentina_features:
+        argentina_intensity.append({
+            key: argentina_features[key].sum()
+        })       
+        
+    finland_features = features[3]['Finland']
+    finland_features = pd.DataFrame(finland_features)
+
+    for key in finland_features:
+        finland_intensity.append({
+            key: finland_features[key].sum()
+        })
+
+    norway_features = features[4]['Norway']
+    norway_features = pd.DataFrame(norway_features)
+
+    for key in norway_features:
+        norway_intensity.append({
+            key: norway_features[key].sum()
+        })
+
+    italy_features = features[5]['Italy']
+    italy_features = pd.DataFrame(italy_features)
+
+    for key in italy_features:
+        italy_intensity.append({
+            key: italy_features[key].sum()
+        })
+
+    phillipines_features = features[7]['Phillipines']
+    phillipines_features = pd.DataFrame(phillipines_features)
+
+    for key in phillipines_features:
+        phillipines_intensity.append({
+            key: phillipines_features[key].sum()
+        })
+
+    taiwan_features = features[8]['Taiwan']
+    taiwan_features = pd.DataFrame(taiwan_features)
+
+    for key in taiwan_features:
+        taiwan_intensity.append({
+            key: taiwan_features[key].sum()
+        })
+
+    zealand_features = features[9]['New Zealand']
+    zealand_features = pd.DataFrame(zealand_features)
+
+    for key in zealand_features:
+        zealand_intensity.append({
+            key: zealand_features[key].sum()
+        })
+
+    estonia_features = features[10]['Estonia']
+    estonia_features = pd.DataFrame(estonia_features)
+
+    for key in estonia_features:
+        estonia_intensity.append({
+            key: estonia_features[key].sum()
+        })     
+
+    turkey_features = features[11]['Turkey']
+    turkey_features = pd.DataFrame(turkey_features)
+
+    for key in turkey_features:
+        turkey_intensity.append({
+            key: turkey_features[key].sum()
+        })   
+
+    america_features = features[12]['United States of America']
+    america_features = pd.DataFrame(america_features)
+
+    for key in america_features:
+        america_intensity.append({
+            key: america_features[key].sum()
+        }) 
+
+    salvador_features = features[13]['El Salvador']
+    salvador_features = pd.DataFrame(salvador_features)
+
+    for key in salvador_features:
+        salvador_intensity.append({
+            key: salvador_features[key].sum()
+        }) 
+
+    costa_features = features[14]['Costa Rica']
+    costa_features = pd.DataFrame(costa_features)
+
+    for key in costa_features:
+        costa_intensity.append({
+            key: costa_features[key].sum()
+        })    
+            
+    germany_features = features[15]['Germany']
+    germany_features = pd.DataFrame(germany_features)
+
+    for key in germany_features:
+        germany_intensity.append({
+            key: germany_features[key].sum()
+        })
+
+    chile_features = features[16]['Chile']
+    chile_features = pd.DataFrame(chile_features)
+
+    for key in chile_features:
+        chile_intensity.append({
+            key: chile_features[key].sum()
+        })
+            
+    return jsonify(
+        ecuador_intensity,
+        france_intensity,
+        argentina_intensity,
+        finland_intensity,
+        norway_intensity,
+        italy_intensity,
+        phillipines_intensity,
+        taiwan_intensity,
+        zealand_intensity,
+        estonia_intensity,
+        turkey_intensity,
+        america_intensity,
+        salvador_intensity,
+        costa_intensity,
+        germany_intensity,
+        chile_intensity
+        )
+
+if __name__ == '__main__':
+    app.run(debug = True)
