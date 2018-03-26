@@ -26,7 +26,7 @@ def region_intensity():
     'Finland',
     'Norway',
     'Italy',
-    'Lituania',
+    'Lithuania',
     'Phillipines',
     'Taiwan',
     'New Zealand',
@@ -44,7 +44,9 @@ def region_intensity():
         Music. BPM,
         Music.DANCE,
         Music.ACOUSTIC,
-        Music.POP
+        Music.POP,
+        Music.Latitude,
+        Music.Longitude
     ]
 
     features = []
@@ -54,6 +56,7 @@ def region_intensity():
     finland_intensity = []
     norway_intensity = []
     italy_intensity = []
+    lithuania_intensity = []
     phillipines_intensity = []
     taiwan_intensity = []
     zealand_intensity = []
@@ -116,6 +119,14 @@ def region_intensity():
     for key in italy_features:
         italy_intensity.append({
             key: italy_features[key].sum()
+        })
+
+    lithuania_features = features[6]['Lithuania']
+    lithuania_features = pd.DataFrame(lithuania_features)
+
+    for key in lithuania_features:
+        lithuania_intensity.append({
+            key: lithuania_features[key].sum()
         })
 
     phillipines_features = features[7]['Phillipines']
@@ -205,6 +216,7 @@ def region_intensity():
         finland_intensity,
         norway_intensity,
         italy_intensity,
+        lithuania_intensity,
         phillipines_intensity,
         taiwan_intensity,
         zealand_intensity,
