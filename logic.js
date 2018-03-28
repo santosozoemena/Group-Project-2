@@ -17,7 +17,7 @@ d3.csv('2018top1.csv', function(data){
       var marker = L.marker([d.lat , d.lng], {
        draggable: true,
        title: "My First Marker",
-       "light" : {"color": "green"}
+       color: "green"
 
       }).addTo(map);
 
