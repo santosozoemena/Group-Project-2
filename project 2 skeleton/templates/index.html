@@ -17,19 +17,18 @@
         the song. <br>
         Valence - The higher the value, the more positive mood for the song. <br>
         Length - The duration of the song. <br>
-        Acoustic - The higher the value the more acoustic the song is. <br>
-        Popularity - The higher the value the more popular the song is.</h4>
-
+        Acoustic - The higher the value the more acoustic the song is.</h4>
+    
         <select id="selDataset" onchange="getData(this.value)">
             <option value="dance">dance</option>
             <option value="bpm">bpm</option>
             <option value="energy">energy</option>
             <option value="valence">valence</option>
-            <option value="loud">loud</option>
             <option value="acoustic">acoustic</option>
             <option value="pop">pop</option>
-            <option value="loud">length</option>
+            <option value="loud">loud</option>
         </select>
+        <h3>By Region:</h3>
     <div id="bar"></div>
     <script>
 
@@ -37,7 +36,9 @@
         Plotly.d3.json(default_url, function (error, response) {
             if (error) return console.warn(error);
             var data = [response];
-            var layout = { margin: { t: 30, b: 100 } }
+            var layout = {
+                margin: { t: 30, b: 100 },
+                }
             Plotly.plot("bar", data, layout)
         })
 
@@ -56,7 +57,57 @@
             });
         }
     </script>
+    <div id="my1Div"></div>
+    <script>
+
+        var default_url = "/all";
+        Plotly.d3.json(default_url, function (error, response) {
+            if (error) return console.warn(error);
+            var data = [response];
+            var layout = {
+                margin: { t: 30, b: 100 },
+            }
+        
+        Plotly.plot("my1Div", data, layout)})
+    </script>
 
 
+    <div id="myDiv"></div>
+    <script>
+        var default_url = "/test";
+            Plotly.d3.json(default_url, function (error, response) {
+                if (error) return console.warn(error);
+                var data = response;
+                var layout = {
+                    autosize: false,
+                    width: 2000,
+                    height: 1000,
+                    title: "Totally Useless but c0l0rz th0",
+                    font: {
+                            size: 15
+                        },
+                        showlegend: false,
+                        polar: {
+                            bgcolor: "rgb(223, 223, 223)",
+                            angularaxis: {
+                                tickwidth: 2,
+                                linewidth: 3,
+                                layer: "below traces"
+                            },
+                            radialaxis: {
+                                side: "counterclockwise",
+                                showline: true,
+                                linewidth: 2,
+                                tickwidth: 2,
+                                gridcolor: "white",
+                                gridwidth: 2
+                            }
+                        },
+                        // paper_bgcolor: "rgb(223, 223, 223)",
+                }
+
+        Plotly.plot("myDiv", data, layout)})
+    </script>
+   
 </body>
 </html>

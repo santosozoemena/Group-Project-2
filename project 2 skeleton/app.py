@@ -1,4 +1,4 @@
-from sqlalchemy import func
+from sqlalchemy import func, desc
 import datetime as dt
 import numpy as np
 import pandas as pd
@@ -59,30 +59,36 @@ def home():
 
 @app.route("/dance")
 def dance_feature():
-    results = db.session.query(Music.Region, Music.DANCE).order_by(func.random()).limit(100).all()
+    results = db.session.query(Music.Region, Music.DANCE, Music.ACOUSTIC).order_by(func.random()).limit(10000).all()
     region = [result[0] for result in results]
     dance = [int(result[1]) for result in results]
+    acoustic = [int(result[2]) for result in results]
     # Generate the plot trace
     plot_trace = {
         "x": region,
         "y": dance,
-        "type": "bar",
-        "title": "test"
-    }
+        "type": "histogram",
+        # "textposition": 'auto',
+        # "hoverinfo": 'none',
+        "marker": {
+            "color": 'rgb(58,202,25)'
+            }
+        }
+
     return jsonify(plot_trace)
 
 
 @app.route("/bpm")
 def bpm_feature():
     results = db.session.query(Music.Region, Music.BPM).order_by(
-        func.random()).limit(100).all()
+        func.random()).limit(10000).all()
     region = [result[0] for result in results]
     bpm = [int(result[1]) for result in results]
     # Generate the plot trace
     plot_trace = {
         "x": region,
         "y": bpm,
-        "type": "bar"
+        "type": "histogram"
     }
     return jsonify(plot_trace)
 
@@ -90,14 +96,14 @@ def bpm_feature():
 @app.route("/energy")
 def energy_feature():
     results = db.session.query(Music.Region, Music.ENERGY).order_by(
-        func.random()).limit(100).all()
+        func.random()).limit(1000).all()
     region = [result[0] for result in results]
     energy = [int(result[1]) for result in results]
     # Generate the plot trace
     plot_trace = {
         "x": region,
         "y": energy,
-        "type": "bar"
+        "type": "histogram"
     }
     return jsonify(plot_trace)
 
@@ -105,14 +111,14 @@ def energy_feature():
 @app.route("/valence")
 def valence_feature():
     results = db.session.query(Music.Region, Music.VALENCE).order_by(
-        func.random()).limit(100).all()
+        func.random()).limit(10000).all()
     region = [result[0] for result in results]
     valence = [int(result[1]) for result in results]
     # Generate the plot trace
     plot_trace = {
         "x": region,
         "y": valence,
-        "type": "bar"
+        "type": "histogram"
     }
     return jsonify(plot_trace)
 
@@ -120,14 +126,14 @@ def valence_feature():
 @app.route("/loud")
 def loud_feature():
     results = db.session.query(Music.Region, Music.LOUD).order_by(
-        func.random()).limit(100).all()
+        func.random()).limit(10000).all()
     region = [result[0] for result in results]
     loud = [int(result[1]) for result in results]
     # Generate the plot trace
     plot_trace = {
         "x": region,
         "y": loud,
-        "type": "bar"
+        "type": "histogram"
     }
     return jsonify(plot_trace)
 
@@ -135,14 +141,14 @@ def loud_feature():
 @app.route("/acoustic")
 def acoustic_feature():
     results = db.session.query(Music.Region, Music.ACOUSTIC).order_by(
-        func.random()).limit(100).all()
+        func.random()).limit(10000).all()
     region = [result[0] for result in results]
     acoustic = [int(result[1]) for result in results]
     # Generate the plot trace
     plot_trace = {
         "x": region,
         "y": acoustic,
-        "type": "bar"
+        "type": "histogram"
     }
     return jsonify(plot_trace)
 
@@ -150,14 +156,14 @@ def acoustic_feature():
 @app.route("/pop")
 def pop_feature():
     results = db.session.query(Music.Region, Music.POP).order_by(
-        func.random()).limit(100).all()
+        func.random()).limit(10000).all()
     region = [result[0] for result in results]
     pop = [int(result[1]) for result in results]
     # Generate the plot trace
     plot_trace = {
         "x": region,
         "y": pop,
-        "type": "bar"
+        "type": "histogram"
     }
     return jsonify(plot_trace)
 
@@ -165,16 +171,130 @@ def pop_feature():
 @app.route("/length")
 def length_feature():
     results = db.session.query(Music.Region, Music.LENGTH).order_by(
-        func.random()).limit(100).all()
+        func.random()).limit(10000).all()
     region = [result[0] for result in results]
     pop = [int(result[1]) for result in results]
     # Generate the plot trace
     plot_trace = {
         "x": region,
         "y": length,
-        "type": "bar"
+        "type": "histogram"
     }
     return jsonify(plot_trace)
+
+
+@app.route("/all")
+def all_feature():
+    results = db.session.query(Music.Region, Music.DANCE, Music.ACOUSTIC, Music.LENGTH, Music.POP, Music.LOUD, Music.VALENCE, Music.ENERGY, Music.BPM).order_by(func.random()).limit(100).all()
+    region = [result[0] for result in results]
+    dance = [int(result[1]) for result in results]
+    acoustic = [int(result[2]) for result in results]
+    # Generate the plot trace
+    plot_trace = {
+        "x": acoustic,
+        "y": region,
+        "type": "histogram2d"
+    }
+    return jsonify(plot_trace)
+
+
+@app.route("/test")
+def test_feature():
+    results = db.session.query(Music.Region, Music.DANCE, Music.ACOUSTIC, Music.LENGTH, Music.POP,
+                               Music.LOUD, Music.VALENCE, Music.ENERGY, Music.BPM).order_by(func.random()).limit(100).all()
+    region = [result[0] for result in results]
+    dance = [int(result[1]) for result in results]
+    acoustic = [int(result[2]) for result in results]
+    pop = [int(result[4]) for result in results]
+    valence = [int(result[6]) for result in results]
+    energy = [int(result[7]) for result in results]
+    bpm = [int(result[8]) for result in results]
+    # Generate the plot trace
+    plot_trace = [
+        {
+            "type": "scatterpolargl",
+            "r": dance,
+            "theta": region,
+            "mode": "markers",
+            "name": "dance",
+            "marker": {
+                "color": "rgb(27,158,119)",
+                "size": 15,
+                "line": {
+                    "color": "white"
+                },
+                "opacity": 0.7
+            },
+            "cliponaxis": 'false'
+        },
+        {
+            "type": "scatterpolargl",
+            "r": acoustic,
+            "theta": region,
+            "mode": "markers",
+            "name": "acoustic",
+            "marker": {
+                "color": "rgb(217,95,2)",
+                "size": 15,
+                "line": {
+                    "color": "white"
+                },
+                "opacity": 0.7
+            },
+            "cliponaxis":"false"
+        },
+        {
+            "type": "scatterpolargl",
+            "r": pop,
+            "theta": region,
+            "mode": "markers",
+            "name": "pop",
+            "marker": {
+                "color": "rgb(117,112,179)",
+                "size": 15,
+                "line": {
+                    "color": "white"
+                },
+                "opacity": 0.7
+            },
+            "cliponaxis": "false"
+        },
+        {
+            "type": "scatterpolargl",
+            "r": valence,
+            "theta": region,
+            "mode": "markers",
+            "name": "valence",
+            "marker": {
+                "color": "rgb(231,41,138)",
+                "size": 15,
+                "line": {
+                    "color": "white"
+                },
+                "opacity": 0.7
+            },
+            "cliponaxis": "false"
+        },
+        {
+            "type": "scatterpolargl",
+            "r": energy,
+            "theta": region,
+            "mode": "markers",
+            "name": "bpm",
+            "marker": {
+                "color": "rgb(230,171,2)",
+                "size": 15,
+                "line": {
+                    "color": "white"
+                },
+                "opacity": 0.7
+            },
+            "cliponaxis": "false"
+        }
+    ]
+    return jsonify(plot_trace)
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
