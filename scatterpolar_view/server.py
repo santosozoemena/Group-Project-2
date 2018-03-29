@@ -9,12 +9,12 @@ from flask import  (
 
 import pandas as pd
 
-app = Flask(__name__)
+server = Flask(__name__)
 
 from flask_sqlalchemy import SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/spotify_data.sqlite'
+server.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sqlite_data/spotify_data.sqlite'
 
-db = SQLAlchemy(app)
+db = SQLAlchemy(server)
 
 class Music(db.Model):
     __tablename__ = 'spotify_table'
@@ -45,15 +45,15 @@ class Music(db.Model):
     def __repr__(self):
         return f"id={self.id}, name={self.name}"
 
-@app.before_first_request
+@server.before_first_request
 def setup():
     db.create_all()
 
-@app.route('/')
+@server.route('/')
 def home():
     return render_template('index.html')
 
-@app.route("/scatterPolar")
+@server.route("/scatter_polar")
 def scatterPolar_feature():
     
     results = db.session.query(Music.Region, 
@@ -124,4 +124,4 @@ def scatterPolar_feature():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    server.run(debug=True)

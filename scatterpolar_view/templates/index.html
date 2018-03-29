@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>scattterPolar Depth</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 
 <body>
@@ -19,37 +20,13 @@
         Acoustic - The higher the value the more acoustic the song is.</h4>
     
         
-    <div id="scatterPolar" align = 'center'></div>
-    <script>
-        var scatterPolar_server = "/scatterPolar";
-        Plotly.d3.json(scatterPolar_server, function(error, response){
-            if(error) return console.warn(error);
-            var data = response;
-            var layout = 
-            {
-                showlegend: true,
-                polar: 
-                {
-                    domain: {
-                        x: [0, 0.46],
-                        y: [0.56, 1]
-                    },
-                    radialaxis: {
-                        angle: 360
-                    },
-                    angularaxis: {
-                        direction: "clockwise",
-                        period: 1
-                    }
-                },
-                height:1500,
-                width:1500,
-                
-            }
-        Plotly.newPlot('scatterPolar',data,layout)
-        })
-    </script> 
+    <div id="scatterPolar"></div>
+    
 
-   
+
+    
+
+    <script src="{{ url_for('static', filename='js/server.js') }}"></script>
+
 </body>
 </html>
