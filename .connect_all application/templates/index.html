@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Spotify Map</title>
+
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+
+
+  <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+
+<body >
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+  </nav>
+  
+  <img src="image/spotifyFinal.png" alt="spotify" height=150 width=100%>
+  <div id="map"></div>
+  
+
+
+
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class = 'text-center'><font color='white'> Spotify Music Insights</font></h1>
+          <h2 class = 'text-center'> <font color='white'> Overview </font></h2>
+          <p>We are looking at the Spotify worldwide daily song ranking dataset as a reference, and using it to scrape spotify data. Consisting of 3 views,  we plan on creating an interactive map of the world that will visualize our data by country and region. Second view will informatively display popularity vs population by country. View 3 will measure a song by time series and will display how long it held popularity.
+          <a href='https://www.kaggle.com/edumucelli/spotifys-worldwide-daily-song-ranking/data'>Click here to access the meta data!</a></p>
+        </div>
+      </div>
+     
+
+      <div class = 'row'>
+        <div class = 'col-md-12'>
+            <p class = 'text-center'><font color='white'>Team: Ahmed, Christian, George, Jimcel, Santos</font></p>
+        </div>
+      </div>
+
+      <div class="col-md-12 pad top"> <br>
+        <div class="text-center">
+          <a href="view_bar.html"><h5>Spotify BarGraph</h5></a>
+          <a href="view_scatterpolar.html"><h5>Spotify ScatterPolar</h5></a>
+        </div>
+      </div>
+
+  
+  <!-- Our JS -->
+  <script type="text/javascript" src="logic.js"></script>
+</body>
+</html>
