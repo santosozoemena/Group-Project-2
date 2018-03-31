@@ -51,7 +51,7 @@ def setup():
 
 @server.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('view_scatterpolar.html')
 
 @server.route("/scatter_polar")
 def scatterPolar_feature():
