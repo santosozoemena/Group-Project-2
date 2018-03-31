@@ -1,0 +1,35 @@
+
+/* remove default margin and padding from body */
+body {
+    padding: 0;
+    margin: 0;
+  }
+
+
+  /* set map, body, and html to 100% of the screen size */
+  #map,
+  body,
+  ul,
+  p,
+  html {
+    height: 87%;
+    background: rgb(24,26,26);
+    color: #01FF70
+  }
+  #padding {
+    padding: 10
+  }
+   /* h3 {
+     color: grey;
+   }
+  /* h1{
+    color:#00FF7F;
+  }
+  
+  h3{
+    color:#00FF7F;
+  }
+  
+  p{
+    color:#00FF7F;
+  } */
