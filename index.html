@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Spotify Map</title>
+
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+
+
+  <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+
+<body >
+  
+  
+  <img src="spotifyFinal.png" alt="spotify" height=150 width=100%>
+
+  <div class='row'>
+    <div class='col-md-12'>
+      <p class='text-center'>
+        <font color='white'>Spotify Music Insights Overview</font>
+        <br>
+        <font color='white'>Team: Ahmed, Christian, George, Jimcel, Santos</font><br>
+        <a href="http://localhost:5000">First Page of Visualizations</a>
+      </p>
+    </div>
+  </div>
+  <div>
+  <!--div id="map"--></div>  
+  </div>
+
+  
+  <div class='row'>
+    <div class='col-md-12'>
+      
+      <!-- 21:9 aspect ratio -->
+      <div class="embed-responsive embed-responsive-21by9">
+        <iframe class="embed-responsive-item" src="https://spotifymaps.github.io/musicalcities/"></iframe>
+      </div>
+      <!--iframe src="https://spotifymaps.github.io/musicalcities/" width="100%" height="475" frameborder="0" style="padding:13px"></iframe-->
+    </div>
+  </div>
+ 
+  <!-- Our JS -->
+  <script type="text/javascript" src="logic.js"></script>
+</body>
+</html>
