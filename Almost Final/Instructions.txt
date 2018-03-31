@@ -1,0 +1,6 @@
+run the python file app.py in cmdline - "python app.py"
+double click to open the index.html file that's in the DASHBOARD folder (not templates folder). 
+the hyperlink 'first page of visualizations' will go to a page with the 3 visualizations
+
+FYI the map is not currently working on my computer. Santos please see why.
+
